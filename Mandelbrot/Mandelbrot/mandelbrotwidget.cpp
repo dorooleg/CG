@@ -150,7 +150,7 @@ void MandelbrotWidget::resizeGL(int width, int height)
 void MandelbrotWidget::wheelEvent(QWheelEvent *event)
 {
     const double oldZoom = zoom;
-    zoom += event->delta() * 0.01 * zoom;
+    zoom += event->delta() * 0.001 * zoom;
     zoom = qMax(0.1, zoom);
 
     const double oldX = -(event->x() / (double)width() - 0.5) / oldZoom;
