@@ -7,6 +7,7 @@
 
 const TGAColor TGAColor::WHITE(255, 255, 255, 255);  // NOLINT
 const TGAColor TGAColor::RED(255, 0, 0, 255);        // NOLINT
+const TGAColor TGAColor::GREEN(0, 255, 0, 255);      // NOLINT
 
 TGAImage::TGAImage() : data(nullptr), width(0), height(0), bytespp(0) {}
 

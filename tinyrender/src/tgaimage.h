@@ -57,6 +57,7 @@ struct TGAColor final {
 
   static const TGAColor WHITE;
   static const TGAColor RED;
+  static const TGAColor GREEN;
 };
 
 class TGAImage final {

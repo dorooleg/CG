@@ -7,7 +7,7 @@ static const size_t height = 5000;
 
 int main() {
   Canvas canvas(width, height);
-  Model model("src/obj/african_head.obj");
+  Model model("src/obj/obj/african_head.obj");
   canvas.model(model);
   canvas.write_tga_file("output.tga");
 }
