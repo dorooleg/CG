@@ -9,32 +9,11 @@
 class wavefront
 {
 public:
-	explicit wavefront(const std::string& path)
-	{
-		std::string error;
-		const auto result = LoadObj(&attrib_, &shapes_, &materials_, &error, path.c_str());
+	explicit wavefront(const std::string& path);
 
-		if (!error.empty())
-		{
-			std::cerr << wavefront_error << error << std::endl;
-		}
+	const tinyobj::attrib_t& get_attributes() const;
 
-		if (!result)
-		{
-			std::cerr << wavefront_error << "Failed to load file = " << path << std::endl;
-			exit(ENOTSUP);
-		}
-
-		if (shapes_.empty())
-		{
-			std::cerr << wavefront_error << "# shapes are zero" << std::endl;
-			exit(ENOTSUP);
-		}
-	}
-
-	const tinyobj::attrib_t& get_attributes() const { return attrib_; }
-
-	const std::vector<tinyobj::shape_t>& get_shapes() const { return shapes_; }
+	const std::vector<tinyobj::shape_t>& get_shapes() const;
 
 private:
 	static constexpr char* wavefront_error = "Wavefront error: ";
@@ -42,3 +21,36 @@ private:
 	std::vector<tinyobj::shape_t> shapes_;
 	std::vector<tinyobj::material_t> materials_;
 };
+
+inline wavefront::wavefront(const std::string& path)
+{
+	std::string error;
+	const auto result = LoadObj(&attrib_, &shapes_, &materials_, &error, path.c_str());
+
+	if (!error.empty())
+	{
+		std::cerr << wavefront_error << error << std::endl;
+	}
+
+	if (!result)
+	{
+		std::cerr << wavefront_error << "Failed to load file = " << path << std::endl;
+		exit(ENOTSUP);
+	}
+
+	if (shapes_.empty())
+	{
+		std::cerr << wavefront_error << "# shapes are zero" << std::endl;
+		exit(ENOTSUP);
+	}
+}
+
+inline const tinyobj::attrib_t& wavefront::get_attributes() const
+{
+	return attrib_;
+}
+
+inline const std::vector<tinyobj::shape_t>& wavefront::get_shapes() const
+{
+	return shapes_;
+}
