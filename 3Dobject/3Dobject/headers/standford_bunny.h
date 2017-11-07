@@ -69,7 +69,7 @@ private:
 		unsigned int vao_;
 	};
 
-	static constexpr char *path = "../3DObject/resources/objs/stanford_bunny.obj";
+	static constexpr const char *path = "../3DObject/resources/objs/stanford_bunny.obj";
 	std::vector<float> vertices_;
 	unsigned int vbo_;
 };
