@@ -45,6 +45,8 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_STENCIL_BITS, 4);
+	glfwWindowHint(GLFW_SAMPLES, 4);
 
 	// glfw window creation
 	// --------------------
@@ -162,7 +164,7 @@ int main()
 
 	// configure depth map FBO
 	// -----------------------
-	const unsigned int shadow_width = 1024, shadow_height = 1024;
+	const unsigned int shadow_width = 4096, shadow_height = 4096;
 	unsigned int depth_map_fbo;
 	glGenFramebuffers(1, &depth_map_fbo);
 	// create depth texture
