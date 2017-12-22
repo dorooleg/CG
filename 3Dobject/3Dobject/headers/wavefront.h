@@ -16,7 +16,7 @@ public:
 	const std::vector<tinyobj::shape_t>& get_shapes() const;
 
 private:
-	static constexpr char* wavefront_error = "Wavefront error: ";
+	static constexpr const char* const wavefront_error = "Wavefront error: ";
 	tinyobj::attrib_t attrib_;
 	std::vector<tinyobj::shape_t> shapes_;
 	std::vector<tinyobj::material_t> materials_;

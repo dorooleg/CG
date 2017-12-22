@@ -55,7 +55,7 @@ private:
 	};
 
 	unsigned int vbo_;
-	static constexpr float vertices[] {
+	static constexpr const float vertices[] {
 			-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 			0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 			0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
@@ -97,7 +97,7 @@ private:
 			0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
 			-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
 			-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
-		}; 
+		};
 };
 
 inline cube::cube()
@@ -112,6 +112,7 @@ inline cube::~cube()
 	glDeleteBuffers(1, &vbo_);
 }
 
+constexpr const float cube::vertices[];
 inline const float* cube::get_vertices()
 {
 	return vertices;
