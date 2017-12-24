@@ -11,3 +11,18 @@
   - GLAD
   - Assimp
   
+# Keyboard
+ '1' ALL
+ 
+ '2' POSITION
+ 
+ '3' NORMAL
+ 
+ '4' DIFFUSE
+ 
+ '5' SPECULAR
+ 
+ '-' decrease count lights
+ 
+ '+' increase count lights
+  
