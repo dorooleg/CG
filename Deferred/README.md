@@ -1,7 +1,7 @@
 # Deferred
 
 <p align="center">
-  <img src="deffered.jpg">
+  <img src="deferred.jpg">
 </p>
 
 # Dependencies
