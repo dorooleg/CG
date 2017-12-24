@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <cube.h>
+#include <algorithm>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -22,7 +23,7 @@ const unsigned int scr_width = 800;
 const unsigned int scr_height = 600;
 
 // camera
-Camera camera(glm::vec3(1.0f, 2.f, 10.0f));
+Camera camera(glm::vec3(5.0f, 2.f, 10.0f));
 float last_x = scr_width / 2.0f;
 float last_y = scr_height / 2.0f;
 bool first_mouse = true;
@@ -164,18 +165,18 @@ int main()
 
 	// configure depth map FBO
 	// -----------------------
-	const unsigned int shadow_width = 4096, shadow_height = 4096;
+	const unsigned int shadow_width = 2048, shadow_height = 2048;
 	unsigned int depth_map_fbo;
 	glGenFramebuffers(1, &depth_map_fbo);
 	// create depth texture
 	unsigned int depth_map;
 	glGenTextures(1, &depth_map);
 	glBindTexture(GL_TEXTURE_2D, depth_map);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, shadow_width, shadow_height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, shadow_width, shadow_height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	float border_color[] = { 1.0, 1.0, 1.0, 1.0 };
 	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, border_color);
 	// attach depth texture as FBO's depth buffer

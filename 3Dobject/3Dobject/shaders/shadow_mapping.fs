@@ -31,9 +31,9 @@ uniform Light light;
 
 vec3 BlinnPhong(Light light, Material material, vec3 viewPos, vec3 normal, vec3 frag_pos)
 {
-        // ambient
+    // ambient
     vec3 ambient = light.ambient * material.ambient;
-  	
+
     // diffuse 
     vec3 norm = normalize(normal);
     vec3 lightDir = normalize(light.position - frag_pos);
@@ -75,8 +75,25 @@ float ShadowCalculation(vec4 fragPosLightSpace)
     {
         for(int y = -1; y <= 1; ++y)
         {
-            float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r; 
-            shadow += currentDepth - bias > pcfDepth  ? 1.0 : 0.0;        
+            // Bilinear filtering
+            vec2 start = projCoords.xy + vec2(x, y) * texelSize;
+
+            float pcfDepth = texture(shadowMap, start).r;
+            float r00 = currentDepth - bias > pcfDepth  ? 1.0 : 0.0;
+
+            pcfDepth = texture(shadowMap, start + vec2(texelSize.x, 0.0)).r;
+            float r10 = currentDepth - bias > pcfDepth  ? 1.0 : 0.0;
+
+            pcfDepth = texture(shadowMap, start + vec2(0.0, texelSize.y)).r;
+            float r01 = currentDepth - bias > pcfDepth  ? 1.0 : 0.0;
+
+            pcfDepth = texture(shadowMap, start + texelSize).r;
+            float r11 = currentDepth - bias > pcfDepth  ? 1.0 : 0.0;
+
+            vec2 ratio = start / texelSize - floor(start / texelSize);
+            vec2 opposite = 1.0 - ratio;
+
+            shadow += (r00 * opposite.x  + r10 * ratio.x) * opposite.y + (r01 * opposite.x + r11 * ratio.x) * ratio.y;
         }    
     }
     shadow /= 9.0;
@@ -90,7 +107,6 @@ float ShadowCalculation(vec4 fragPosLightSpace)
 
 void main()
 {           
-    
     vec3 normal = normalize(fs_in.Normal);
 
     vec3 color = vec3(0.3, 0.9, 0.3);
@@ -115,8 +131,6 @@ void main()
      vec3 blinn = BlinnPhong(light, material, viewPos, fs_in.Normal, fs_in.FragPos);
 
     vec3 lighting = (ambient + (1.0 - shadow) * (diffuse + specular)) * blinn; 
-    
-   
 
     FragColor = vec4(lighting + blinn, 1.0);
 }
