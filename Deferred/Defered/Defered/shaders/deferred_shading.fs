@@ -27,15 +27,18 @@ const int NR_LIGHTS = 512;
 uniform Light lights[NR_LIGHTS];
 uniform vec3 viewPos;
 
+uniform float gammaCorrection;
+
 void main()
 {             
     vec3 FragPos = texture(gPosition, TexCoords).rgb;
     vec3 Normal = texture(gNormal, TexCoords).rgb;
-    vec3 Diffuse = texture(gAlbedoSpec, TexCoords).rgb;
+    vec3 Diffuse = pow(texture(gAlbedoSpec, TexCoords).rgb, vec3(gammaCorrection));
     float Specular = texture(gAlbedoSpec, TexCoords).a;
     
     vec3 lighting  = Diffuse * 0.1;
     vec3 viewDir  = normalize(viewPos - FragPos);
+
     for(int i = 0; i < lightCount; ++i)
     {
         // diffuse
@@ -60,6 +63,7 @@ void main()
             lighting += specular;  
     }
 
+    lighting = pow(lighting, vec3(1.0 / gammaCorrection));
     if (typeRender == ALL)
         FragColor = vec4(lighting, 1.0);
     if (typeRender == POSITION)

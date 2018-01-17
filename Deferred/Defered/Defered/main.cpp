@@ -35,6 +35,7 @@ bool first_mouse = true;
 
 float delta_time = 0.0f;
 float last_frame = 0.0f;
+float gamma_correction = 2.2f;
 
 enum TypeRender
 {
@@ -201,6 +202,7 @@ int main()
 			shader_lighting_pass.set_float("lights[" + to_string(i) + "].Quadratic", quadratic);
 		}
 		shader_lighting_pass.set_vec3("viewPos", camera.Position);
+		shader_lighting_pass.set_float("gammaCorrection", gamma_correction);
 		render_quad();
 
 		glBindFramebuffer(GL_READ_FRAMEBUFFER, g_buffer);
@@ -392,6 +394,16 @@ static void process_input(GLFWwindow* window)
 	{
 		number_lights = max(number_lights - 1, 0);
 		resize_count_lights(light_positions, light_colors, number_lights);
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_7) == GLFW_PRESS)
+	{
+		gamma_correction += 0.1;
+	}
+
+	if (glfwGetKey(window, GLFW_KEY_6) == GLFW_PRESS)
+	{
+		gamma_correction = max(0.1, gamma_correction - 0.1);
 	}
 }
 
