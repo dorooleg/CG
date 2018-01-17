@@ -22,6 +22,10 @@
  
  '5' SPECULAR
  
+ '6' decrese gamma
+ 
+ '7' increase gamma
+ 
  '-' decrease count lights
  
  '+' increase count lights
