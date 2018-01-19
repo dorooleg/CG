@@ -1,0 +1,4 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(937,5): warning MSB8027: Two or more files with the name of random_texture.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are Common\random_texture.cpp, random_texture.cpp.
+Debug\random_texture.obj : warning LNK4042: object specified more than once; extras ignored
+  ParticleSystem.vcxproj -> C:\Users\Oleg\Desktop\CG\ParticleSystem\ParticleSystem\Debug\ParticleSystem.exe
+  ParticleSystem.vcxproj -> C:\Users\Oleg\Desktop\CG\ParticleSystem\ParticleSystem\Debug\ParticleSystem.pdb (Partial PDB)
